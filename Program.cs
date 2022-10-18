@@ -6,12 +6,15 @@ using System.Net;
 using System.Text;
 using Path = System.IO.Path;
 
+List<string> pptExtensions = new() { "pptx", "pptm", "ppt", "potx", "potm", "pot", "ppxs", "ppsm", "pps", "ppam", "ppa" };
+
 while (true)
 {
     var filePath = string.Empty;
     Console.Write("Enter full path to file (e.g. C:\\Users\\me\\Documents\\My Presentation.pptx): ");
     do
     {
+        filePath = string.Empty;
         filePath = Console.ReadLine();
         //filePath = @"C:\Users\boclifton\OneDrive - Microsoft\Documents\Presentations\Azure TUB\2022-09 - Azure-Technical Update Briefing.pptx";
 
@@ -23,6 +26,13 @@ while (true)
         {
             Console.WriteLine("File not found.  Enter a valid path with filename and extension (e.g. C:\\Users\\me\\Documents\\My Presentation.pptx).");
             filePath = string.Empty;
+            continue;
+        }
+        if (!pptExtensions.Contains(Path.GetExtension(filePath).Replace(".", "")))
+        {
+            Console.WriteLine($"This application only support PowerPoint files.  Please select a file with one of the following extensions: {string.Join(", ", pptExtensions)}");
+            filePath = string.Empty;
+            continue;
         }
     } while (string.IsNullOrEmpty(filePath));
 
