@@ -12,4 +12,8 @@
     <PackageReference Include="htmlagilitypack" Version="1.11.46" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(SolutionDir)\bin\$(ConfigurationName)\net6.0\$(ProjectName).exe&quot; &quot;$(SolutionDir)&quot;" />
+  </Target>
+
 </Project>
